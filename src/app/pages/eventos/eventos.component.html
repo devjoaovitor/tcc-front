@@ -1,0 +1,27 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card" id="evento-card">
+        <div class="card-body">
+          <h5 class="card-title">Novo Evento</h5>
+          <form [formGroup]="eventoForm" (ngSubmit)="salvarEvento()">
+            <div class="form-group">
+              <label for="nomeEvento">Nome do Evento</label>
+              <input type="text" formControlName="nomeEvento" class="form-control" id="nomeEvento" placeholder="Nome do Evento">
+            </div>
+            <div class="form-group">
+              <label for="dataEvento">Data do Evento</label>
+              <input type="date" formControlName="dataEvento" class="form-control" id="dataEvento">
+            </div>
+            <div class="form-group">
+              <label for="localEvento">Local do Evento</label>
+              <input type="text" formControlName="localEvento" class="form-control" id="localEvento" placeholder="Local do Evento">
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
