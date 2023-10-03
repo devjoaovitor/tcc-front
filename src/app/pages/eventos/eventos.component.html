@@ -18,8 +18,35 @@
               <label for="localEvento">Local do Evento</label>
               <input type="text" formControlName="localEvento" class="form-control" id="localEvento" placeholder="Local do Evento">
             </div>
-            <button type="submit" class="btn btn-primary">Salvar</button>
+            <div class="form-group">
+              <label for="bebidaSelecionada">Bebida Disponível</label>
+              <select formControlName="bebidaSelecionada" class="form-control" id="bebidaSelecionada">
+                <option value="" disabled selected>Selecione uma bebida</option>
+                <option *ngFor="let bebida of bebidasDisponiveis" [value]="bebida.nome">{{ bebida.nome }}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="quantidadeBebida">Quantidade</label>
+              <input type="number" formControlName="quantidadeBebida" class="form-control" id="quantidadeBebida" placeholder="Quantidade">
+            </div>
+            <div class="event-button">
+            <button type="button" class="btn" (click)="adicionarBebida()">Adicionar Bebida</button>
+            <button type="submit" class="btn" ml-auto>Salvar</button>
+            </div>
           </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6" *ngIf="bebidasDoEvento.length > 0">
+      <div class="card" id="bebidas-card">
+        <div class="card-body">
+          <h5 class="bebidas-title">Bebidas Adicionadas</h5>
+          <ul>
+            <li *ngFor="let bebida of bebidasDoEvento">
+              {{ bebida.nome }} - Quantidade: {{ bebida.quantidade }}
+            </li>
+          </ul>
         </div>
       </div>
     </div>
