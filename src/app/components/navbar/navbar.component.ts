@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
 
+  constructor(private toastService: ToastService) {}
+
+  sair() {
+    this.toastService.showToast('Tem certeza que deseja sair da aplicação?', 'Fechar', 'Sair');
+  }
 }

@@ -1,0 +1,45 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-9">
+      <div class="card" id="bebida-card">
+        <div class="card-body">
+          <h5 class="card-title">Bebidas no estoque</h5>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Quantidade</th>
+                <th scope="col">Descrição</th>
+                <th scope="col">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let bebida of bebidas">
+                <td>{{ bebida.nome }}</td>
+                <td>{{ bebida.quantidade }}</td>
+                <td>{{ bebida.descricao }}</td>
+                <td>
+                  <div class="button-group">
+                    <button
+                      class="btn btn-edit"
+                      (click)="editarBebida(bebida.id)"
+                    >
+                      Editar
+                    </button>
+                    <button
+                      class="btn btn-delete"
+                      (click)="excluirBebida(bebida.id)"
+                    >
+                      Excluir
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,13 +1,94 @@
+<app-toast></app-toast>
 <nav class="navbar navbar-light bg-light custom-border-bottom">
   <div class="container">
     <a class="navbar-brand" href="#">
-      <img src="assets/drink-icon.svg" alt="icone" width="50" height="50">
+      <img src="assets/drink-icon.svg" alt="icone" width="50" height="50" />
     </a>
 
-    <div class="button-group">
-      <a type="button" class="btn btn-color" [routerLink]="['/eventos']">Eventos</a>
-      <a type="button" class="btn btn-color" [routerLink]="['/bebidas']">Bebidas</a>
-      <a type="button" class="btn btn-color last-button" href="#">Sair</a>
+    <div class="dropdown-button">
+      <div class="dropdown">
+        <button
+          class="btn btn-color dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton1"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Usuarios
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li>
+            <a class="dropdown-item" [routerLink]="['/cadastro-usuario']"
+              >Lista de usuarios</a
+            >
+          </li>
+          <li>
+            <a class="dropdown-item" [routerLink]="['/cadastro-usuario']">Incluir novo usuario</a>
+          </li>
+        </ul>
+      </div>
+      <div class="dropdown">
+        <button
+          class="btn btn-color dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton1"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Estoque
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li>
+            <a class="dropdown-item" [routerLink]="['/estoque']"
+              >Verificar estoque</a
+            >
+          </li>
+          <li>
+            <a class="dropdown-item" [routerLink]="['/estoque']">Relatório</a>
+          </li>
+        </ul>
+      </div>
+      <div class="dropdown">
+        <button
+          class="btn btn-color dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton1"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Eventos
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li>
+            <a class="dropdown-item" [routerLink]="['/eventos']">Novo evento</a>
+          </li>
+          <li>
+            <a class="dropdown-item" [routerLink]="['/eventos']">Relatório</a>
+          </li>
+        </ul>
+      </div>
+      <div class="dropdown">
+        <button
+          class="btn btn-color dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton1"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Bebidas
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li>
+            <a class="dropdown-item" [routerLink]="['/bebidas']">Nova bebida</a>
+          </li>
+          <li>
+            <a class="dropdown-item" [routerLink]="['/bebidas']">Relatório</a>
+          </li>
+        </ul>
+      </div>
+      <a type="button" class="btn btn-color last-button" (click)="sair()"
+        >Sair</a
+      >
     </div>
   </div>
 </nav>

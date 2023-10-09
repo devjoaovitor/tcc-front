@@ -1,5 +1,5 @@
 .container{
-  margin-top: 10%;
+  margin-top: 5%;
 }
 
 #evento-card {
@@ -19,17 +19,31 @@
   font-size: 20px;
   font-weight: bold;
   color: #8C52FF;
-  margin-bottom: 10%;
+  // margin-bottom: 10%;
   margin-top: 20px;
 }
 
 .event-button {
   display: flex;
-  justify-content: space-between;
+  flex-direction: row-reverse;
 
   button {
     background-color: #8C52FF;
     color: #fff;
+    min-width: 80px;
+    min-height: 35px;
+  }
+}
+
+.drink-event-button{
+  display: flex;
+  flex-direction: row-reverse;
+
+  button {
+    background-color: #8C52FF;
+    color: #fff;
+    min-width: 80px;
+    min-height: 35px;
   }
 }
 
@@ -38,4 +52,35 @@
   font-weight: bold;
   color: #8C52FF;
   margin-bottom: 10%;
+}
+
+.bebida-info {
+  display: flex;
+  margin-top: 5px;
+  align-items: center;
+}
+
+.bebida-info button {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.bebida-info:hover button {
+  opacity: 1;
+}
+
+.btn-sm{
+  margin-left: 10px;
+  min-width: 30px;
+  min-height: 30px;
+  background-color: #8C52FF;
+  color: #fff;
+  border-color: #8C52FF;
+}
+
+.title-remove{
+  font-size: 14px;
+  color: #8C52FF;
+  margin-bottom: 15px;
+  margin-top: 10px;
 }

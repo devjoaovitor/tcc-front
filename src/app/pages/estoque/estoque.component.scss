@@ -34,3 +34,24 @@
   margin-bottom: 10%;
 }
 
+.button-group{
+  display: flex;
+}
+
+.btn-edit{
+  background-color: #8C52FF;
+  color: #fff;
+  min-width: 80px;
+  min-height: 35px;
+  margin-right: 5%;
+}
+
+.btn-delete{
+  background-color: #8C52FF;
+  color: #fff;
+  min-width: 80px;
+  min-height: 35px;
+  margin-right: 5%;
+  margin-left: 8px;
+}
+

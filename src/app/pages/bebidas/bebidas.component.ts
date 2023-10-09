@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-bebidas',
@@ -9,26 +10,26 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 export class BebidasComponent {
   public bebidaForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private toastService: ToastService) {
     this.bebidaForm = this.fb.group({
       nomeBebida: ['', Validators.required],
       tipoBebida: ['', Validators.required],
       teorAlcoolico: ['', [Validators.required, Validators.max(100)]],
-      descricaoBebida: ['', Validators.required]
+      descricaoBebida: ['', Validators.required],
+      quantidadeBebida: ['', [Validators.required, Validators.min(0)]],
     });
   }
 
   ngOnInit() {}
 
   salvarBebida() {
-    console.log('Bebida salvo:', this.bebidaForm.value);
+
   }
 
   limitarValor(event: Event) {
     const inputElement = event.target as HTMLInputElement;
     const currentValue = parseFloat(inputElement.value);
 
-    // Limitar ao intervalo [0, 100]
     if (currentValue < 0) {
       inputElement.value = '0';
     } else if (currentValue > 100) {

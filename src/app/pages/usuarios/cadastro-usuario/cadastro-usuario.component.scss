@@ -1,8 +1,8 @@
 .container{
-  margin-top: 5%;
+  margin-top: 180px;
 }
 
-#bebida-card {
+#registro-card {
   padding: 20px;
 
   .form-group {
@@ -15,7 +15,7 @@
   }
 }
 
-.bebida-button {
+.registro-button {
   display: flex;
   flex-direction: row-reverse;
 
@@ -27,10 +27,20 @@
   }
 }
 
-.card-title{
-  font-size: 20px;
-  font-weight: bold;
+.reset-password{
+  display: flex;
+  flex-direction: row-reverse;
+  margin-top: 15px;
+  cursor: pointer;
   color: #8C52FF;
-  margin-bottom: 10%;
+  text-decoration: underline;
+}
+
+.text-info{
+  color: #8C52FF !important;
+}
+
+.text-danger {
+  color: #8C52FF !important;
 }
 

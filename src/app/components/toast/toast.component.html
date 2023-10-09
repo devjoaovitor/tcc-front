@@ -1,0 +1,7 @@
+<div id="toast" [ngClass]="{'show': showToast}">
+  <div id="toast-message" [innerHTML]="message">{{ message }}</div>
+  <div class="buttons">
+    <button (click)="hideToast()">{{ closeButtonLabel }}</button>
+    <button (click)="confirm()">{{ confirmButtonLabel }}</button>
+  </div>
+</div>

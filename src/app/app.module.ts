@@ -7,7 +7,13 @@ import { HomeComponent } from './pages/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { EventosComponent } from './pages/eventos/eventos.component';
 import { BebidasComponent } from './pages/bebidas/bebidas.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastComponent } from './components/toast/toast.component';
+import { EstoqueComponent } from './pages/estoque/estoque.component';
+import { BebidasEditComponent } from './pages/bebidas/bebidas-edit/bebidas-edit.component';
+import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './pages/login/login.component';
+import { CadastroUsuarioComponent } from './pages/usuarios/cadastro-usuario/cadastro-usuario.component';
 
 @NgModule({
   declarations: [
@@ -15,12 +21,19 @@ import { ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     NavbarComponent,
     EventosComponent,
-    BebidasComponent
+    BebidasComponent,
+    ToastComponent,
+    EstoqueComponent,
+    BebidasEditComponent,
+    LoginComponent,
+    CadastroUsuarioComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

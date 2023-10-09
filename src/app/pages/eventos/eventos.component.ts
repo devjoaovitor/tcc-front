@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -11,8 +12,12 @@ export class EventosComponent implements OnInit {
   public bebidasDoEvento: any[] = [];
 
   public bebidasDisponiveis = [
-    { nome: 'Bebida 1' },
-    { nome: 'Bebida 2' },
+    { nome: 'Cervejaaaaaaa' },
+    { nome: 'Vinho Tinto' },
+    { nome: 'Vinho Branco' },
+    { nome: 'Vodka' },
+    { nome: 'Whisky' },
+    { nome: 'Tequila' },
   ];
 
   constructor(private fb: FormBuilder) {
@@ -35,8 +40,27 @@ export class EventosComponent implements OnInit {
 
     if (bebidaSelecionada && quantidadeBebida) {
       const bebida = { nome: bebidaSelecionada, quantidade: quantidadeBebida };
-      this.bebidasDoEvento.push(bebida);  // Crie um array bebidasDoEvento no componente para armazenar as bebidas
+      this.bebidasDoEvento.push(bebida);
     }
+  }
+
+  removerBebida(index: number) {
+    this.bebidasDoEvento.splice(index, 1);
+  }
+
+  exibirResumoEvento(): boolean {
+    const nomeEvento = this.eventoForm.get('nomeEvento')?.value;
+    const dataEvento = this.eventoForm.get('dataEvento')?.value;
+    const localEvento = this.eventoForm.get('localEvento')?.value;
+    const bebidasLength = this.bebidasDoEvento.length;
+
+    return nomeEvento || dataEvento || localEvento || bebidasLength > 0;
+  }
+
+  formatarData(data: string): string {
+    const datePipe: DatePipe = new DatePipe('en-US');
+    const formattedDate = datePipe.transform(data, 'dd/MM/yyyy');
+    return formattedDate || '';
   }
 
   salvarEvento() {
