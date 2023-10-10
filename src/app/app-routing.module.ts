@@ -7,6 +7,7 @@ import { EstoqueComponent } from './pages/estoque/estoque.component';
 import { BebidasEditComponent } from './pages/bebidas/bebidas-edit/bebidas-edit.component';
 import { LoginComponent } from './pages/login/login.component';
 import { CadastroUsuarioComponent } from './pages/usuarios/cadastro-usuario/cadastro-usuario.component';
+import { VendasComponent } from './pages/vendas/vendas.component';
 
 
 const routes: Routes = [
@@ -16,7 +17,8 @@ const routes: Routes = [
   { path: 'bebidas/edit/:id', component: BebidasEditComponent },
   { path: 'estoque', component: EstoqueComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'cadastro-usuario', component: CadastroUsuarioComponent }
+  { path: 'cadastro-usuario', component: CadastroUsuarioComponent },
+  { path: 'vendas', component: VendasComponent },
 ];
 
 @NgModule({

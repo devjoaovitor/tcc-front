@@ -14,6 +14,7 @@ import { BebidasEditComponent } from './pages/bebidas/bebidas-edit/bebidas-edit.
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './pages/login/login.component';
 import { CadastroUsuarioComponent } from './pages/usuarios/cadastro-usuario/cadastro-usuario.component';
+import { VendasComponent } from './pages/vendas/vendas.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { CadastroUsuarioComponent } from './pages/usuarios/cadastro-usuario/cada
     EstoqueComponent,
     BebidasEditComponent,
     LoginComponent,
-    CadastroUsuarioComponent
+    CadastroUsuarioComponent,
+    VendasComponent
   ],
   imports: [
     BrowserModule,

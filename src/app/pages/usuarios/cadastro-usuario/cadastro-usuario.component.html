@@ -32,6 +32,7 @@
               <div class="form-check">
                 <input class="form-check-input" type="radio" formControlName="tipoUsuario" value="Visualizacao" id="tipoUsuarioVisualizacao">
                 <label class="form-check-label" for="tipoUsuarioVisualizacao">Apenas visualização</label>
+                <label class="form-check-label" for="tipoUsuarioVisualizacao">Vendedor</label>
               </div>
               <small *ngIf="tipoUsuario?.invalid && (tipoUsuario?.dirty || tipoUsuario?.touched)" class="text-danger">Selecione o tipo de usuário.</small>
             </div>

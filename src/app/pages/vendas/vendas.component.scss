@@ -2,7 +2,7 @@
   margin-top: 5%;
 }
 
-#bebida-card {
+#vendas-card {
   padding: 20px;
 
   .form-group {
@@ -15,7 +15,7 @@
   }
 }
 
-.bebida-button {
+.vendas-button {
   display: flex;
   flex-direction: row-reverse;
 
@@ -34,27 +34,7 @@
   margin-bottom: 10%;
 }
 
-.button-group{
-  display: flex;
-}
-
-.btn-edit{
-  background-color: #8C52FF;
-  color: #fff;
-  min-width: 80px;
-  min-height: 35px;
-  margin-right: 5%;
-}
-
-.btn-delete{
-  background-color: #8C52FF;
-  color: #fff;
-  min-width: 80px;
-  min-height: 35px;
-  margin-right: 5%;
-  margin-left: 8px;
-}
-
 .text-danger {
   color: #8C52FF !important;
 }
+
