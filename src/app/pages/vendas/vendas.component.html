@@ -8,7 +8,7 @@
           <form [formGroup]="vendasForm" (ngSubmit)="registrarVenda()">
             <div class="mb-3">
               <label for="bebida" class="form-label">Bebida</label>
-              <select formControlName="bebida" class="form-select" id="bebida">
+              <select formControlName="bebida" class="form-select" id="bebida" (change)="limparCampos()">
                 <option value="" disabled selected>Selecione uma bebida</option>
                 <option *ngFor="let bebida of bebidasDisponiveis" [value]="bebida.nome">{{ bebida.nome }}</option>
               </select>
@@ -17,15 +17,9 @@
 
             <div class="mb-3">
               <label for="quantidade" class="form-label">Quantidade</label>
-              <input type="number" formControlName="quantidade" class="form-control" id="quantidade" placeholder="Informe a quantidade">
+              <input type="number" formControlName="quantidade" class="form-control" id="quantidade" placeholder="Informe a quantidade" min="1" [max]="getMaxQuantidade()" (input)="validarQuantidade()">
               <small *ngIf="vendasForm.get('quantidade')?.invalid && (vendasForm.get('quantidade')?.dirty || vendasForm.get('quantidade')?.touched)" class="text-danger">Quantidade é obrigatória.</small>
             </div>
-
-            <!-- <div class="mb-3">
-              <label for="valor" class="form-label">Valor (R$)</label>
-              <input type="text" formControlName="valor" class="form-control" id="valor" placeholder="Informe o valor" (keypress)="onKeyPress($event)">
-              <small *ngIf="vendasForm.get('valor')?.invalid && (vendasForm.get('valor')?.dirty || vendasForm.get('valor')?.touched)" class="text-danger">Valor é obrigatório.</small>
-            </div> -->
 
             <div class="mb-3">
               <label class="form-label">Forma de Pagamento</label>

@@ -18,7 +18,7 @@ export class VendasComponent {
     this.vendasForm = this.fb.group({
       bebida: ['', Validators.required],
       quantidade: ['', Validators.required],
-      valor: ['', Validators.required],
+      valor: [''],
       formaPagamento: ['', Validators.required],
     });
   }
@@ -44,9 +44,38 @@ export class VendasComponent {
     }
   }
 
+  limparCampos(): void {
+    this.vendasForm.get('quantidade')?.reset();
+    this.vendasForm.get('formaPagamento')?.reset();
+  }
+
+  getMaxQuantidade(): number {
+    const bebidaSelecionada = this.bebidasDisponiveis.find(bebida => bebida.nome === this.bebida?.value);
+
+    if (bebidaSelecionada) {
+      return bebidaSelecionada.quantidade;
+    }
+
+    return 0;
+  }
+
   obterEstoqueBebida(): number {
     const bebidaSelecionada = this.bebidasDisponiveis.find(bebida => bebida.nome === this.bebida?.value);
     return bebidaSelecionada ? bebidaSelecionada.quantidade : 0;
+  }
+
+  validarQuantidade(): void {
+    const bebidaSelecionada = this.bebidasDisponiveis.find(bebida => bebida.nome === this.bebida?.value);
+    const quantidadeInput = this.vendasForm.get('quantidade');
+
+    if (bebidaSelecionada && quantidadeInput) {
+      const quantidadeVendida = parseInt(quantidadeInput.value, 10);
+
+      // Limita a quantidade ao estoque disponível
+      if (quantidadeVendida > bebidaSelecionada.quantidade) {
+        quantidadeInput.setValue(bebidaSelecionada.quantidade); // Define a quantidade como o máximo disponível
+      }
+    }
   }
 
   // onKeyPress(event: any) {
