@@ -37,7 +37,6 @@ export class CadastroUsuarioComponent {
   }
 
   cadastrarUsuario() {
-    // Lógica para cadastrar o usuário
     console.log('Dados do cadastro:', this.cadastroForm.value);
   }
 }

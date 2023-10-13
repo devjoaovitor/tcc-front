@@ -12,7 +12,7 @@ export class EventosComponent implements OnInit {
   public bebidasDoEvento: any[] = [];
 
   public bebidasDisponiveis = [
-    { nome: 'Cervejaaaaaaa' },
+    { nome: 'Cerveja' },
     { nome: 'Vinho Tinto' },
     { nome: 'Vinho Branco' },
     { nome: 'Vodka' },

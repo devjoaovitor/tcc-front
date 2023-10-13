@@ -49,12 +49,12 @@ export class VendasComponent {
     return bebidaSelecionada ? bebidaSelecionada.quantidade : 0;
   }
 
-  onKeyPress(event: any) {
-    const allowedChars = /[0-9\.\ ]/;
-    const inputChar = String.fromCharCode(event.charCode);
+  // onKeyPress(event: any) {
+  //   const allowedChars = /[0-9\.\ ]/;
+  //   const inputChar = String.fromCharCode(event.charCode);
 
-    if (!allowedChars.test(inputChar)) {
-      event.preventDefault();
-    }
-  }
+  //   if (!allowedChars.test(inputChar)) {
+  //     event.preventDefault();
+  //   }
+  // }
 }

@@ -16,6 +16,7 @@ export class BebidaService {
       nome: 'Bebida Mockada',
       tipoBebida: 1,
       teorAlcoolico: 0,
+      valorUnitario: 10,
       quantidadeBebida: 10,
       descricaoBebida: 'Esta é uma bebida mockada.'
     });

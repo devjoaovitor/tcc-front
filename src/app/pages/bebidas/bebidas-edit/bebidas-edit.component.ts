@@ -19,6 +19,7 @@ export class BebidasEditComponent implements OnInit {
       teorAlcoolico: ['', [Validators.required, Validators.max(100)]],
       descricaoBebida: ['', Validators.required],
       quantidadeBebida: ['', [Validators.required, Validators.min(0)]],
+      valorUnitario: ['', [Validators.required, Validators.min(0)]],
     });
   }
 
@@ -36,10 +37,10 @@ export class BebidasEditComponent implements OnInit {
       tipoBebida: bebida.tipoBebida,
       teorAlcoolico: bebida.teorAlcoolico,
       quantidadeBebida: bebida.quantidadeBebida,
-      descricaoBebida: bebida.descricaoBebida
+      descricaoBebida: bebida.descricaoBebida,
+      valorUnitario: bebida.valorUnitario,
     });
   }
-
 
   limitarValor(event: Event) {
     const inputElement = event.target as HTMLInputElement;
@@ -53,8 +54,7 @@ export class BebidasEditComponent implements OnInit {
   }
 
   salvarBebida() {
-    this.bebidaService.updateBebida(this.bebidaForm.value).subscribe(() => {
-    });
+    console.log(this.bebidaForm.value);
   }
 
 }

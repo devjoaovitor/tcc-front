@@ -1,0 +1,29 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card" id="evento-card">
+        <div class="card-body">
+          <h5 class="card-title">Editar evento</h5>
+          <form>
+            <div class="form-group">
+              <label for="nomeEvento">Nome do Evento</label>
+              <input type="text" class="form-control" id="nomeEvento" [(ngModel)]="evento.nome" name="nomeEvento">
+            </div>
+            <div class="form-group">
+              <label for="dataEvento">Data do Evento</label>
+              <input type="date" class="form-control" id="dataEvento" [(ngModel)]="evento.data" name="dataEvento">
+            </div>
+            <div class="form-group">
+              <label for="localEvento">Local do Evento</label>
+              <input type="text" class="form-control" id="localEvento" [(ngModel)]="evento.local" name="localEvento" >
+            </div>
+            <div class="evento-button">
+              <button type="submit" class="btn" ml-auto>Salvar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
