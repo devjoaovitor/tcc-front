@@ -14,6 +14,7 @@ export class EventosComponent implements OnInit {
   public eventoForm: FormGroup;
   public bebidasDoEvento: any[] = [];
   public bebidasDisponiveis: any[] = [];
+  public mensagemDeSucesso: string | null = null;
 
   constructor(private fb: FormBuilder, private bebidaService: BebidaService, private router: Router, private eventoService: EventoService) {
     this.eventoForm = this.fb.group({
@@ -147,6 +148,10 @@ export class EventosComponent implements OnInit {
         this.eventoForm.reset();
         this.bebidasDoEvento = [];
         this.obterBebidasDisponiveis();
+        this.mensagemDeSucesso = 'Evento salvo com sucesso!';
+        setTimeout(() => {
+          this.mensagemDeSucesso = null;
+        }, 2000);
       },
       error => {
         console.error('Erro ao salvar o evento:', error);

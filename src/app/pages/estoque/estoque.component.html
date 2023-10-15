@@ -1,4 +1,7 @@
 <app-navbar></app-navbar>
+<div class="alert-sucesso" *ngIf="mensagemDeSucesso">
+  <app-sucesso-mensagem [mensagem]="mensagemDeSucesso"></app-sucesso-mensagem>
+</div>
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-9">

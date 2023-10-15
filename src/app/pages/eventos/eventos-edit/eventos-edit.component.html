@@ -1,25 +1,35 @@
 <app-navbar></app-navbar>
+<div class="alert-sucesso" *ngIf="mensagemDeSucesso">
+  <app-sucesso-mensagem [mensagem]="mensagemDeSucesso"></app-sucesso-mensagem>
+</div>
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-6">
       <div class="card" id="evento-card">
         <div class="card-body">
           <h5 class="card-title">Editar evento</h5>
-          <form>
+          <form [formGroup]="eventoForm" (ngSubmit)="salvarEvento()">
             <div class="form-group">
-              <label for="nomeEvento">Nome do Evento</label>
-              <input type="text" class="form-control" id="nomeEvento" [(ngModel)]="evento.nome" name="nomeEvento">
+              <label for="nomeevento">Nome do Evento</label>
+              <input type="text" class="form-control" id="nomeevento" formControlName="nomeevento">
+              <small *ngIf="eventoForm.get('nomeevento')?.hasError('required') && eventoForm.get('nomeevento')?.touched" class="text-danger">Nome do evento é obrigatório.</small>
             </div>
+
             <div class="form-group">
-              <label for="dataEvento">Data do Evento</label>
-              <input type="date" class="form-control" id="dataEvento" [(ngModel)]="evento.data" name="dataEvento">
+              <label for="dataevento">Data do Evento</label>
+              <input type="date" class="form-control" id="dataevento" [value]="formatarData(eventoForm.get('dataevento')?.value)" formControlName="dataevento">
+              <small *ngIf="eventoForm.get('dataevento')?.hasError('required') && eventoForm.get('dataevento')?.touched" class="text-danger">Data do evento é obrigatória.</small>
+              <small *ngIf="eventoForm.get('dataevento')?.hasError('pattern') && eventoForm.get('dataevento')?.touched" class="text-danger">Formato da data inválido</small>
             </div>
+
             <div class="form-group">
-              <label for="localEvento">Local do Evento</label>
-              <input type="text" class="form-control" id="localEvento" [(ngModel)]="evento.local" name="localEvento" >
+              <label for="localevento">Local do Evento</label>
+              <input type="text" class="form-control" id="localevento" formControlName="localevento">
+              <small *ngIf="eventoForm.get('localevento')?.hasError('required') && eventoForm.get('localevento')?.touched" class="text-danger">Local do evento é obrigatório.</small>
             </div>
+
             <div class="evento-button">
-              <button type="submit" class="btn" ml-auto>Salvar</button>
+              <button type="submit" class="btn" [disabled]="eventoForm.invalid">Salvar</button>
             </div>
           </form>
         </div>

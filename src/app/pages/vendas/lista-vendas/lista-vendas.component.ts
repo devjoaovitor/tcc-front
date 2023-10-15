@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { ToastService } from 'src/app/services/toast.service';
 import { VendasService } from 'src/app/services/vendas.service';
 
@@ -42,7 +43,16 @@ export class ListaVendasComponent {
     }
   }
 
-  gerarRelatorio(){
-
+  gerarRelatorio() {
+    this.vendasService.gerarRelatorioVendas().subscribe(
+      data => {
+        const blob = new Blob([data], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        window.open(url);
+      },
+      error => {
+        console.error('Erro ao gerar o relatório de vendas:', error);
+      }
+    );
   }
 }

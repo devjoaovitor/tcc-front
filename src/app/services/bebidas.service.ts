@@ -33,4 +33,9 @@ export class BebidaService {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
+  gerarRelatorioBebidas(): Observable<any> {
+    const url = `http://localhost:3000/api/bebida/relatorio`;
+    return this.http.get(url, { responseType: 'arraybuffer' as 'json' });
+  }
+
 }

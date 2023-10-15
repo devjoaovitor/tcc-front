@@ -61,10 +61,10 @@ export class BebidasEditComponent implements OnInit {
   this.bebidaService.updateBebida({...bebidaData }).subscribe(
     () => {
       this.mensagemDeSucesso = 'Bebida atualizada com sucesso!';
-      this.router.navigate(['/estoque']);
       setTimeout(() => {
         this.mensagemDeSucesso = null;
-      }, 3000);
+        this.router.navigate(['/estoque']);
+      }, 2000);
     },
     (error) => {
       console.error('Erro ao atualizar a bebida:', error);

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class CadastroUsuarioComponent {
   senhaGerada: string = '';
   mensagemDeSucesso: string | null = null;
 
-  constructor(private fb: FormBuilder, private usuarioService: UsuarioService) {
+  constructor(private router: Router, private fb: FormBuilder, private usuarioService: UsuarioService) {
     this.cadastroForm = this.fb.group({
       nome: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -45,7 +46,8 @@ export class CadastroUsuarioComponent {
         this.mensagemDeSucesso = 'Usuário cadastrado com sucesso!';
         setTimeout(() => {
           this.mensagemDeSucesso = null;
-        }, 2000);
+          this.router.navigate(['/lista-usuarios']);
+        }, 1000);
       },
       (error) => {
         console.error('Erro ao cadastrar usuário:', error);

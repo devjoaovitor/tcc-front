@@ -9,6 +9,7 @@ import { BebidaService } from 'src/app/services/bebidas.service';
 })
 export class EstoqueComponent implements OnInit {
   bebidas: any[];
+  mensagemDeSucesso: string | null = null;
 
   constructor(private router: Router, private bebidaService: BebidaService) {
     this.bebidas = [];
@@ -30,7 +31,6 @@ export class EstoqueComponent implements OnInit {
   }
 
   editarBebida(id: number) {
-    console.log('Editar bebida com o ID:', id);
     this.router.navigate(['/bebidas/edit', id]);
   }
 
@@ -39,6 +39,10 @@ export class EstoqueComponent implements OnInit {
       (bebidas) => {
         this.bebidas = bebidas;
         this.carregarBebidas()
+        this.mensagemDeSucesso = 'Bebida excluída com sucesso!';
+        setTimeout(() => {
+          this.mensagemDeSucesso = null;
+        }, 2000);
       },
       (error) => {
         console.error('Erro ao obter a lista de bebidas:', error);
@@ -47,6 +51,15 @@ export class EstoqueComponent implements OnInit {
   }
 
   gerarRelatorio() {
-
+    this.bebidaService.gerarRelatorioBebidas().subscribe(
+      (response: any) => {
+        const blob = new Blob([response], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        window.open(url);
+      },
+      error => {
+        console.error('Erro ao gerar relatório de bebidas:', error);
+      }
+    );
   }
 }

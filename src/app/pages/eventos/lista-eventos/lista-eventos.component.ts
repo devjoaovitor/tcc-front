@@ -37,9 +37,22 @@ export class ListaEventosComponent implements OnInit {
   }
 
   editarEvento(id: number) {
-    console.log('Editar evento com o ID:', id);
     this.router.navigate(['/evento/edit', id]);
   }
+
+  gerarRelatorio() {
+    this.eventoService.gerarRelatorio().subscribe(
+      (response: any) => {
+        const blob = new Blob([response], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        window.open(url);
+      },
+      error => {
+        console.error('Erro ao gerar relatório:', error);
+      }
+    );
+  }
+
 
   excluirEvento(id: number) {
     console.log('Excluir evento com o ID:', id);

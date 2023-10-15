@@ -27,10 +27,19 @@
   }
 }
 
+.alert-sucesso{
+  display: flex;
+  flex-direction: row-reverse;
+}
+
 .card-title{
   font-size: 20px;
   font-weight: bold;
   color: #8C52FF;
   margin-bottom: 10%;
+}
+
+.text-danger {
+  color: #8C52FF !important;
 }
 

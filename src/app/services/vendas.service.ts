@@ -17,4 +17,10 @@ export class VendasService {
   registrarVenda(vendaData: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}`, vendaData);
   }
+
+  gerarRelatorioVendas(): Observable<any> {
+    const url = `${this.apiUrl}/relatorio`;
+    return this.http.get(url, { responseType: 'arraybuffer' as 'json' });
+  }
+
 }
