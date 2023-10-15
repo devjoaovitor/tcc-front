@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-cadastro-usuario',
@@ -10,12 +11,12 @@ export class CadastroUsuarioComponent {
   cadastroForm: FormGroup;
   senhaGerada: string = '';
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private usuarioService: UsuarioService) {
     this.cadastroForm = this.fb.group({
       nome: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       senha: [''],
-      tipoUsuario: ['', Validators.required]
+      permissao: ['', Validators.required]
     });
 
     this.gerarSenhaAleatoria();
@@ -24,7 +25,7 @@ export class CadastroUsuarioComponent {
   get nome() { return this.cadastroForm.get('nome'); }
   get email() { return this.cadastroForm.get('email'); }
   get senha() { return this.cadastroForm.get('senha'); }
-  get tipoUsuario() { return this.cadastroForm.get('tipoUsuario'); }
+  get permissao() { return this.cadastroForm.get('permissao'); }
 
   gerarSenhaAleatoria() {
     const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -37,6 +38,14 @@ export class CadastroUsuarioComponent {
   }
 
   cadastrarUsuario() {
-    console.log('Dados do cadastro:', this.cadastroForm.value);
+    const usuarioData = this.cadastroForm.value;
+    this.usuarioService.cadastrarUsuario(usuarioData).subscribe(
+      (response) => {
+        console.log('Usuário cadastrado com sucesso!', response);
+      },
+      (error) => {
+        console.error('Erro ao cadastrar usuário:', error);
+      }
+    );
   }
 }

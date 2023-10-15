@@ -4,7 +4,14 @@
     <div class="col-md-9">
       <div class="card" id="bebida-card">
         <div class="card-body">
+          <div>
           <h5 class="card-title">Bebidas no estoque</h5>
+          <div class="relatorio-group">
+            <button class="btn btn-relatorio" (click)="gerarRelatorio()">
+              Gerar relatório
+            </button>
+          </div>
+         </div>
           <table class="table">
             <thead>
               <tr>

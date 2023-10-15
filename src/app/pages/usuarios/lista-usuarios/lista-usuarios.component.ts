@@ -18,7 +18,14 @@ export class ListaUsuariosComponent {
     ];
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.verificacaoPermissao();
+  }
+
+  verificacaoPermissao(): boolean {
+    const permissao = localStorage.getItem('permissao');
+    return permissao === 'Administrador';
+  }
 
   editarUsuario(id: number) {
     console.log('Editar usuario com o ID:', id);

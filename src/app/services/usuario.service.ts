@@ -1,32 +1,30 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
-  private usuarios: any[] = [
-    { id: 1, nome: 'Joao', email: 'teste@gmail.com', permissao: 'Administrador' },
-    { id: 2, nome: 'Pedro', email: 'teste@gmail.com', permissao: 'Vendedor' },
-    { id: 3, nome: 'Teste', email: 'teste@gmail.com', permissao: 'Visualizacao' }
-  ];
+  private apiUrl = 'http://localhost:3000/api/usuarios';
 
-  constructor() { }
+  constructor(private http: HttpClient) {}
 
-  // Método para obter todos os usuários
-  getUsuarios(): any[] {
-    return this.usuarios;
+  getUsuarios(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
   }
 
-  // Método para obter um usuário por ID
-  getUsuarioById(id: number): any {
-    return this.usuarios.find(usuario => usuario.id === id);
+  getUsuarioById(id: number): Observable<any> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.get<any>(url);
   }
 
-  // Método para editar um usuário
-  editarUsuario(id: number, novoUsuario: any): void {
-    const index = this.usuarios.findIndex(usuario => usuario.id === id);
-    if (index !== -1) {
-      this.usuarios[index] = { ...novoUsuario, id };
-    }
+  cadastrarUsuario(usuario: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, usuario);
+  }
+
+  editarUsuario(id: number, novoUsuario: any): Observable<any> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.put<any>(url, novoUsuario);
   }
 }

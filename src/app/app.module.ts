@@ -21,6 +21,9 @@ import { MudarSenhaComponent } from './pages/usuarios/mudar-senha/mudar-senha.co
 import { ListaUsuariosComponent } from './pages/usuarios/lista-usuarios/lista-usuarios.component';
 import { UsuarioEditComponent } from './pages/usuarios/usuario-edit/usuario-edit.component';
 import { UsuarioService } from './services/usuario.service';
+import { ListaVendasComponent } from './pages/vendas/lista-vendas/lista-vendas.component';
+import { AdminGuard, VendedorGuard, VisualizacaoGuard } from './guards/auth-guard';
+import { SucessoMensagemComponent } from './components/sucesso-mensagem/sucesso-mensagem.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,9 @@ import { UsuarioService } from './services/usuario.service';
     EventosEditComponent,
     MudarSenhaComponent,
     ListaUsuariosComponent,
-    UsuarioEditComponent
+    UsuarioEditComponent,
+    ListaVendasComponent,
+    SucessoMensagemComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +53,7 @@ import { UsuarioService } from './services/usuario.service';
     HttpClientModule,
     FormsModule
   ],
-  providers: [UsuarioService],
+  providers: [UsuarioService, AdminGuard, VendedorGuard, VisualizacaoGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

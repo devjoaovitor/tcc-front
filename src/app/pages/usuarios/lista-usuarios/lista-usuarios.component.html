@@ -11,7 +11,7 @@
                 <th scope="col">Nome</th>
                 <th scope="col">E-mail</th>
                 <th scope="col">Perfil de acesso</th>
-                <th scope="col">Ações</th>
+                <th scope="col" *ngIf="verificacaoPermissao()">Ações</th>
               </tr>
             </thead>
             <tbody>
@@ -20,7 +20,7 @@
                 <td>{{ usuario.email }}</td>
                 <td>{{ usuario.permissao }}</td>
                 <td>
-                  <div class="button-group">
+                  <div class="button-group" *ngIf="verificacaoPermissao()">
                     <button
                       class="btn btn-edit"
                       (click)="editarUsuario(usuario.id)"

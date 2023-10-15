@@ -31,4 +31,8 @@ export class EstoqueComponent {
     this.toastService.showToast('Você tem certeza que deseja excluir esta bebida?<br>Esta ação é irreversível.', 'Fechar', 'Deletar');
   }
 
+  gerarRelatorio() {
+
+  }
+
 }

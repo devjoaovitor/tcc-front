@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
@@ -7,10 +7,11 @@ import { Observable, of } from 'rxjs';
 })
 export class BebidaService {
 
+  private apiUrl = 'http://localhost:3000/api/bebidas';
+
   constructor(private http: HttpClient) {}
 
   getBebida(id: number): Observable<any> {
-    // Retorna dados mockados
     return of({
       id: id,
       nome: 'Bebida Mockada',
@@ -26,8 +27,8 @@ export class BebidaService {
     return this.http.get(`/api/bebidas`);
   }
 
-  saveBebida(bebida: any): Observable<any> {
-    return this.http.post(`/api/bebidas`, bebida);
+  salvarBebida(bebidaData: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}`, bebidaData);
   }
 
   updateBebida(bebida: any): Observable<any> {

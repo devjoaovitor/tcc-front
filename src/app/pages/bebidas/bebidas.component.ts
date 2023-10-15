@@ -1,6 +1,6 @@
 import { Component, ElementRef } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToastService } from 'src/app/services/toast.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BebidaService } from 'src/app/services/bebidas.service';
 
 @Component({
   selector: 'app-bebidas',
@@ -9,8 +9,9 @@ import { ToastService } from 'src/app/services/toast.service';
 })
 export class BebidasComponent {
   public bebidaForm: FormGroup;
+  mensagemDeSucesso: string | null = null;
 
-  constructor(private fb: FormBuilder, private el: ElementRef) {
+  constructor(private fb: FormBuilder, private el: ElementRef, private bebidasService: BebidaService) {
     this.bebidaForm = this.fb.group({
       nomeBebida: ['', Validators.required],
       tipoBebida: ['', Validators.required],
@@ -24,7 +25,7 @@ export class BebidasComponent {
   get nomeBebida() { return this.bebidaForm.get('nomeBebida'); }
   get tipoBebida() { return this.bebidaForm.get('tipoBebida'); }
   get teorAlcoolico() { return this.bebidaForm.get('teorAlcoolico'); }
-  get descricaoBebida() { return this.bebidaForm.get('descricaoBebida'); }
+  get descricao() { return this.bebidaForm.get('descricao'); }
   get quantidadeBebida() { return this.bebidaForm.get('quantidadeBebida'); }
   get valorUnitario() { return this.bebidaForm.get('valorUnitario'); }
 
@@ -32,7 +33,20 @@ export class BebidasComponent {
   ngOnInit() {}
 
   salvarBebida() {
-    console.log(this.bebidaForm.value);
+    const bebidaData = this.bebidaForm.value;
+    this.bebidasService.salvarBebida(bebidaData).subscribe(
+      (response) => {
+        const mensagem = response?.message || 'Bebida salva com sucesso!';
+        this.mensagemDeSucesso = mensagem;
+
+        setTimeout(() => {
+          this.mensagemDeSucesso = null;
+        }, 3000);
+      },
+      (error) => {
+        console.error('Erro ao salvar a bebida.', error);
+      }
+    );
   }
 
   limitarValor(event: Event) {

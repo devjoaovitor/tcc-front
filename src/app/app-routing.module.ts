@@ -13,22 +13,29 @@ import { EventosEditComponent } from './pages/eventos/eventos-edit/eventos-edit.
 import { MudarSenhaComponent } from './pages/usuarios/mudar-senha/mudar-senha.component';
 import { ListaUsuariosComponent } from './pages/usuarios/lista-usuarios/lista-usuarios.component';
 import { UsuarioEditComponent } from './pages/usuarios/usuario-edit/usuario-edit.component';
-
+import { ListaVendasComponent } from './pages/vendas/lista-vendas/lista-vendas.component';
+import { AdminGuard, VendedorGuard, VisualizacaoGuard } from './guards/auth-guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'eventos', component: EventosComponent },
-  { path: 'bebidas', component: BebidasComponent },
-  { path: 'bebidas/edit/:id', component: BebidasEditComponent },
-  { path: 'estoque', component: EstoqueComponent },
+  { path: 'home', component: HomeComponent},
   { path: 'login', component: LoginComponent },
-  { path: 'cadastro-usuario', component: CadastroUsuarioComponent },
-  { path: 'vendas', component: VendasComponent },
-  { path: 'lista-eventos', component: ListaEventosComponent },
-  { path: 'evento/edit/:id', component: EventosEditComponent },
-  { path: 'mudar-senha/:id', component: MudarSenhaComponent },
-  { path: 'lista-usuarios' , component: ListaUsuariosComponent },
-  { path: 'usuario/edit/:id', component: UsuarioEditComponent }
+
+  { path: 'eventos', component: EventosComponent},
+  { path: 'lista-eventos', component: ListaEventosComponent, canActivate: [AdminGuard || VendedorGuard || VisualizacaoGuard] },
+  { path: 'evento/edit/:id', component: EventosEditComponent, canActivate: [AdminGuard]  },
+
+  { path: 'bebidas', component: BebidasComponent, canActivate: [AdminGuard || VendedorGuard] },
+  { path: 'bebidas/edit/:id', component: BebidasEditComponent, canActivate: [AdminGuard]  },
+  { path: 'estoque', component: EstoqueComponent, canActivate: [AdminGuard || VendedorGuard || VisualizacaoGuard] },
+
+  { path: 'vendas', component: VendasComponent, canActivate: [AdminGuard || VendedorGuard] },
+  { path: 'lista-vendas', component: ListaVendasComponent, canActivate: [AdminGuard || VendedorGuard ||  VisualizacaoGuard]},
+
+  { path: 'cadastro-usuario', component: CadastroUsuarioComponent, canActivate: [AdminGuard || VendedorGuard] },
+  { path: 'mudar-senha/:id', component: MudarSenhaComponent, canActivate: [AdminGuard || VendedorGuard ||  VisualizacaoGuard] },
+  { path: 'lista-usuarios' , component: ListaUsuariosComponent, canActivate: [AdminGuard || VendedorGuard || VisualizacaoGuard] },
+  { path: 'usuario/edit/:id', component: UsuarioEditComponent, canActivate: [AdminGuard] }
 ];
 
 @NgModule({

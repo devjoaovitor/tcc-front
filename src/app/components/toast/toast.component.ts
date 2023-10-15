@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
@@ -10,7 +11,7 @@ export class ToastComponent implements AfterViewInit {
   closeButtonLabel: string = 'Fechar';
   confirmButtonLabel: string = 'Sim';
 
-  constructor(private toastService: ToastService) {}
+  constructor(private toastService: ToastService, private router: Router) {}
 
   ngAfterViewInit() {
     this.toastService.setToastComponent(this);
@@ -26,15 +27,13 @@ export class ToastComponent implements AfterViewInit {
     this.showToast = true;
   }
 
-  // Função para esconder o toast
   hideToast() {
     this.showToast = false;
   }
 
-  // Função para ação de confirmação
   confirm() {
-    // Adicione a lógica que deseja executar ao confirmar aqui
-    console.log('Ação de confirmação');
-    this.hideToast();
+   localStorage.removeItem('permissao');
+   this.router.navigate(['/login']);
+   this.hideToast();
   }
 }
