@@ -17,11 +17,11 @@ import { ListaVendasComponent } from './pages/vendas/lista-vendas/lista-vendas.c
 import { AdminGuard, VendedorGuard, VisualizacaoGuard } from './guards/auth-guard';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'home', component: HomeComponent},
+  { path: '', component: HomeComponent, canActivate: [AdminGuard || VendedorGuard || VisualizacaoGuard] },
+  { path: 'home', component: HomeComponent, canActivate: [AdminGuard || VendedorGuard || VisualizacaoGuard]},
   { path: 'login', component: LoginComponent },
 
-  { path: 'eventos', component: EventosComponent},
+  { path: 'eventos', component: EventosComponent, canActivate: [AdminGuard || VendedorGuard ]},
   { path: 'lista-eventos', component: ListaEventosComponent, canActivate: [AdminGuard || VendedorGuard || VisualizacaoGuard] },
   { path: 'evento/edit/:id', component: EventosEditComponent, canActivate: [AdminGuard]  },
 

@@ -12,19 +12,12 @@ export class BebidaService {
   constructor(private http: HttpClient) {}
 
   getBebida(id: number): Observable<any> {
-    return of({
-      id: id,
-      nome: 'Bebida Mockada',
-      tipoBebida: 1,
-      teorAlcoolico: 0,
-      valorUnitario: 10,
-      quantidadeBebida: 10,
-      descricaoBebida: 'Esta é uma bebida mockada.'
-    });
+    console.log('Obtendo bebida com o ID:', id);
+    return this.http.get(`${this.apiUrl}/${id}`);
   }
 
   getAllBebidas(): Observable<any> {
-    return this.http.get(`/api/bebidas`);
+    return this.http.get(`${this.apiUrl}`);
   }
 
   salvarBebida(bebidaData: any): Observable<any> {
@@ -32,11 +25,12 @@ export class BebidaService {
   }
 
   updateBebida(bebida: any): Observable<any> {
-    return this.http.put(`/api/bebidas/${bebida.id}`, bebida);
+    console.log('Atualizando bebida com o ID:', bebida)
+    return this.http.put(`${this.apiUrl}/${bebida.id}`, bebida);
   }
 
   deleteBebida(id: number): Observable<any> {
-    return this.http.delete(`/api/bebidas/${id}`);
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
 }

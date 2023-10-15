@@ -10,6 +10,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 export class CadastroUsuarioComponent {
   cadastroForm: FormGroup;
   senhaGerada: string = '';
+  mensagemDeSucesso: string | null = null;
 
   constructor(private fb: FormBuilder, private usuarioService: UsuarioService) {
     this.cadastroForm = this.fb.group({
@@ -41,7 +42,10 @@ export class CadastroUsuarioComponent {
     const usuarioData = this.cadastroForm.value;
     this.usuarioService.cadastrarUsuario(usuarioData).subscribe(
       (response) => {
-        console.log('Usuário cadastrado com sucesso!', response);
+        this.mensagemDeSucesso = 'Usuário cadastrado com sucesso!';
+        setTimeout(() => {
+          this.mensagemDeSucesso = null;
+        }, 2000);
       },
       (error) => {
         console.error('Erro ao cadastrar usuário:', error);

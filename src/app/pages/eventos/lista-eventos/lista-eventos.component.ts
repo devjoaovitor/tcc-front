@@ -17,14 +17,23 @@ export class ListaEventosComponent implements OnInit {
   }
 
   carregarEventos() {
-    this.eventoService.getEventos().subscribe(
+    this.eventoService.obterEventos().subscribe(
       eventos => {
+        console.log('Eventos:', eventos);
         this.eventos = eventos;
       },
       error => {
         console.error('Erro ao buscar os eventos:', error);
       }
     );
+  }
+
+  formatarData(data: string): string {
+    const dataObj = new Date(data);
+    const dia = ('0' + dataObj.getDate()).slice(-2);
+    const mes = ('0' + (dataObj.getMonth() + 1)).slice(-2);
+    const ano = dataObj.getFullYear();
+    return `${dia}/${mes}/${ano}`;
   }
 
   editarEvento(id: number) {

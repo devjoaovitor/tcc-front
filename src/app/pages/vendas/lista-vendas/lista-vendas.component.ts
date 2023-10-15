@@ -27,9 +27,19 @@ export class ListaVendasComponent {
     );
   }
 
-  formatarData(data: string): string {
-    const [ano, mes, dia] = data.split('-');
-    return `${dia}/${mes}/${ano}`;
+  formatarPagamento(formaPagamento: string): string {
+    switch (formaPagamento) {
+      case 'cartao_credito':
+        return 'Cartão de Crédito';
+      case 'cartao_debito':
+        return 'Cartão de Débito';
+      case 'dinheiro':
+        return 'Dinheiro';
+      case 'pix':
+        return 'PIX';
+      default:
+        return formaPagamento;
+    }
   }
 
   gerarRelatorio(){

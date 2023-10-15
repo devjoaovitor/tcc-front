@@ -6,22 +6,17 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root'
 })
 export class EventoService {
-  private apiUrl = 'caminho-para-sua-api/eventos';
+  private apiUrl = 'http://localhost:3000/api/eventos';
 
-  private eventos: any[] = [
-    { id: 1, nome: 'Evento 1', data: '2023-10-15', local: 'Local 1' },
-    { id: 2, nome: 'Evento 2', data: '2023-10-20', local: 'Local 2' },
-    { id: 3, nome: 'Evento 3', data: '2023-10-25', local: 'Local 3' },
-    // Adicione mais eventos conforme necessário
-  ];
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  getEventos(): Observable<any[]> {
-    return of(this.eventos);
+  salvarEvento(evento: any): Observable<any> {
+    const url = `${this.apiUrl}`;
+    return this.http.post<any>(url, evento);
   }
 
-  getEventoById(id: number): any {
-    return this.eventos.find(evento => evento.id === id);
+  obterEventos(): Observable<any[]> {
+    const url = `${this.apiUrl}`;
+    return this.http.get<any[]>(url);
   }
 }

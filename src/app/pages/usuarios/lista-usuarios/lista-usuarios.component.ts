@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastService } from 'src/app/services/toast.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-lista-usuarios',
@@ -8,18 +9,26 @@ import { ToastService } from 'src/app/services/toast.service';
   styleUrls: ['./lista-usuarios.component.scss']
 })
 export class ListaUsuariosComponent {
-  usuarios: any[];
+  usuarios: any[] = [];
+  mensagemDeSucesso: string | null = null;
 
-  constructor(private toastService: ToastService, private router: Router) {
-    this.usuarios = [
-      { id: 1, nome: 'Joao', email: 'teste@gmail.com', permissao: 'Administrador' },
-      { id: 2, nome: 'Pedro', email: 'teste@gmail.com', permissao: 'Vendedor' },
-      { id: 3, nome: 'Teste', email: 'teste@gmail.com', permissao: 'Visualizacao' }
-    ];
+  constructor(private toastService: ToastService, private router: Router, private usuarioService: UsuarioService) {
   }
 
   ngOnInit() {
     this.verificacaoPermissao();
+    this.getUsuarios();
+  }
+
+  getUsuarios() {
+    this.usuarioService.getUsuarios().subscribe(
+      (usuarios) => {
+        this.usuarios = usuarios;
+      },
+      (error) => {
+        console.error('Erro ao obter a lista de usuarios:', error);
+      }
+    );
   }
 
   verificacaoPermissao(): boolean {
@@ -33,7 +42,18 @@ export class ListaUsuariosComponent {
   }
 
   excluirUsuario(id: number) {
-    console.log('Excluir bebida com o ID:', id);
-    this.toastService.showToast('Você tem certeza que deseja excluir esse usuario?<br>Esta ação é irreversível.', 'Fechar', 'Deletar');
+    this.usuarioService.excluirUsuario(id)
+      .subscribe(
+        () => {
+          this.mensagemDeSucesso = 'Usuário excluído com sucesso!';
+          setTimeout(() => {
+            this.mensagemDeSucesso = null;
+          }, 2000);
+          this.getUsuarios()
+        },
+        (error) => {
+          console.error('Erro ao excluir usuário:', error);
+        }
+      );
   }
 }

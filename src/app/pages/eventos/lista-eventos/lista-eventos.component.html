@@ -11,25 +11,27 @@
                 <th scope="col">Nome do Evento</th>
                 <th scope="col">Data do Evento</th>
                 <th scope="col">Local do Evento</th>
+                <th scope="col">Bebidas / Quantidade</th>
                 <th scope="col">Ações</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let evento of eventos">
-                <td>{{ evento.nome }}</td>
-                <td>{{ evento.data }}</td>
-                <td>{{ evento.local }}</td>
+                <td>{{ evento.nomeevento }}</td>
+                <td>{{ formatarData(evento.dataevento) }}</td>
+                <td>{{ evento.localevento }}</td>
                 <td>
-                  <button
-                    class="btn btn-edit"
-                    (click)="editarEvento(evento.id)"
-                  >
+                  <ul>
+                    <li *ngFor="let bebida of evento.bebidas">
+                      {{ bebida.nome }} - {{ bebida.quantidade }}
+                    </li>
+                  </ul>
+                </td>
+                <td class="acoes-cell">
+                  <button class="btn btn-edit" (click)="editarEvento(evento.id)">
                     Editar
                   </button>
-                  <button
-                    class="btn btn-delete"
-                    (click)="excluirEvento(evento.id)"
-                  >
+                  <button class="btn btn-delete" (click)="excluirEvento(evento.id)">
                     Excluir
                   </button>
                 </td>

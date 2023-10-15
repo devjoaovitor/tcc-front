@@ -19,7 +19,7 @@ export class EventosEditComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       const eventId = Number(params.get('id'));
-      this.evento = this.eventoService.getEventoById(eventId); // Implemente essa função no seu serviço
+      // this.evento = this.eventoService.getEventoById(eventId); // Implemente essa função no seu serviço
     });
   }
 }

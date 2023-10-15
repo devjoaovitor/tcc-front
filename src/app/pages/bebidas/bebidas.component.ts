@@ -16,7 +16,7 @@ export class BebidasComponent {
       nomeBebida: ['', Validators.required],
       tipoBebida: ['', Validators.required],
       teorAlcoolico: [0, [Validators.required, Validators.max(100)]],
-      descricaoBebida: [''],
+      descricao: [''],
       quantidadeBebida: ['', [Validators.required, Validators.min(0)]],
       valorUnitario: ['', [Validators.required, Validators.min(0)]],
     });

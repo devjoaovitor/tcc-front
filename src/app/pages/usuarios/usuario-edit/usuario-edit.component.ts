@@ -11,6 +11,8 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 export class UsuarioEditComponent implements OnInit {
   usuarioForm: FormGroup;
   usuario: any;
+  idUsuario: number = 0;
+  mensagemDeSucesso: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -26,24 +28,38 @@ export class UsuarioEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    const userId = this.route.snapshot.paramMap.get('id');
+    const idUsuario = this.route.snapshot.paramMap.get('id');
+    this.getUsuarioById(Number(idUsuario));
+  }
 
-    if (userId !== null) {
-      this.usuario = this.usuarioService.getUsuarioById(+userId);
-      if (this.usuario) {
-        this.usuarioForm.patchValue(this.usuario);
-      } else {
-        console.error('Usuário não encontrado.');
+  getUsuarioById(id: number) {
+    this.usuarioService.getUsuarioById(id).subscribe(
+      (usuario) => {
+        this.usuario = usuario;
+        this.usuarioForm.patchValue(usuario);
+      },
+      (error) => {
+        console.error('Erro ao obter o usuario:', error);
       }
-    } else {
-      console.error('ID do usuário não fornecido.');
-    }
+    );
   }
 
   salvarEdicao() {
     const novoUsuario = { ...this.usuario, ...this.usuarioForm.value };
-    this.usuarioService.editarUsuario(this.usuario.id, novoUsuario);
-    console.log('Usuário editado com sucesso:', novoUsuario);
-    this.router.navigate(['/lista-usuarios']);
+    this.usuarioService.editarUsuario(this.usuario.id, novoUsuario)
+      .subscribe(
+        () => {
+          this.mensagemDeSucesso = 'Sucesso ao editar dados do usuário!';
+          setTimeout(() => {
+            this.mensagemDeSucesso = null;
+            this.router.navigate(['/lista-usuarios']);
+          }, 1000);
+
+        },
+        (error) => {
+          console.error('Erro ao editar usuário:', error);
+
+        }
+      );
   }
 }

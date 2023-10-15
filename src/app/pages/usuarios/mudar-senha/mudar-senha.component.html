@@ -1,22 +1,13 @@
 <app-navbar></app-navbar>
+<div class="alert-sucesso" *ngIf="mensagemDeSucesso">
+  <app-sucesso-mensagem [mensagem]="mensagemDeSucesso"></app-sucesso-mensagem>
+</div>
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-6">
       <div class="card" id="registro-card">
         <div class="card-body">
-          <form [formGroup]="cadastroForm" (ngSubmit)="cadastrarUsuario()">
-
-            <div class="form-group">
-              <label for="senhaAtual">Senha atual</label>
-              <input type="password" formControlName="senhaAtual" class="form-control" id="senhaAtual">
-              <small class="text-danger" *ngIf="cadastroForm.get('senhaAtual')?.hasError('required') && cadastroForm.get('senhaAtual')?.touched">
-                Senha atual é obrigatória
-              </small>
-              <small class="text-danger" *ngIf="cadastroForm.get('senhaAtual')?.hasError('minlength') && cadastroForm.get('senhaAtual')?.touched">
-                A senha atual deve ter no mínimo 6 caracteres
-              </small>
-            </div>
-
+          <form [formGroup]="cadastroForm" (ngSubmit)="alterarSenha()">
             <div class="form-group">
               <label for="novaSenha">Nova senha</label>
               <input type="password" formControlName="novaSenha" class="form-control" id="novaSenha">

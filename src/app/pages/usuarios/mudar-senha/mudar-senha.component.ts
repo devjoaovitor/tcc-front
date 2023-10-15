@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 const senhaMatchValidator = (control: AbstractControl): { [key: string]: boolean } | null => {
   const novaSenha = control.get('novaSenha')?.value;
@@ -21,10 +22,10 @@ const senhaMatchValidator = (control: AbstractControl): { [key: string]: boolean
 
 export class MudarSenhaComponent {
   cadastroForm: FormGroup;
+  mensagemDeSucesso: string | null = null;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,  private usuarioService: UsuarioService) {
     this.cadastroForm = this.fb.group({
-      senhaAtual: ['', [Validators.required, Validators.minLength(6)]],
       novaSenha: ['', [Validators.required, Validators.minLength(6)]],
       confirmSenha: ['', [Validators.required, Validators.minLength(6)]]
     }, { validator: senhaMatchValidator });
@@ -32,20 +33,34 @@ export class MudarSenhaComponent {
 
   mudarSenha() {
     if (this.cadastroForm.valid) {
-      const senhaAtual = this.cadastroForm.get('senhaAtual')?.value;
       const novaSenha = this.cadastroForm.get('novaSenha')?.value;
       const confirmSenha = this.cadastroForm.get('confirmSenha')?.value;
 
       if (novaSenha === confirmSenha) {
-        // Implement the logic to change the password here
-        // You can use senhaAtual, novaSenha, and confirmSenha
       } else {
         console.log('As senhas não estão iguais.');
       }
     }
   }
 
-  cadastrarUsuario() {
-    console.log('Dados do cadastro:', this.cadastroForm.value);
-  }
+  alterarSenha() {
+    const idUsuario = localStorage.getItem('idUsuario');
+
+    if (idUsuario !== null) {
+      const novaSenha = this.cadastroForm.value.novaSenha;
+      this.usuarioService.alterarSenha(idUsuario, novaSenha).subscribe(
+        response => {
+          this.mensagemDeSucesso = 'Senha alterada com sucesso!';
+          setTimeout(() => {
+            this.mensagemDeSucesso = null;
+          }, 2000);
+        },
+        error => {
+          console.error('Erro ao alterar a senha:', error);
+        }
+      );
+    } else {
+      console.error('ID do usuário não encontrado no localStorage.');
+    }
+}
 }

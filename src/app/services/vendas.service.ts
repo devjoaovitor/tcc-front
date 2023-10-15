@@ -8,16 +8,10 @@ import { Observable, of } from 'rxjs';
 export class VendasService {
   private apiUrl = 'http://localhost:3000/api/vendas';
 
-  private vendas: any[] = [
-    { id: 1, bebida: 'Cerveja', quantidade: 10, formaPagamento: 'PIX', data: '2023-10-15'},
-    { id: 2, bebida: 'Cerveja', quantidade: 10, formaPagamento: 'PIX', data: '2023-10-20'},
-    { id: 3, bebida: 'Cerveja', quantidade: 10, formaPagamento: 'PIX', data: '2023-10-25'},
-  ];
-
   constructor(private http: HttpClient) { }
 
   getVendas(): Observable<any[]> {
-    return of(this.vendas);
+    return this.http.get<any[]>(`${this.apiUrl}`);
   }
 
   registrarVenda(vendaData: any): Observable<any> {

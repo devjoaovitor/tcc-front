@@ -10,16 +10,11 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  // login(email: string, senha: string): Observable<any> {
-  //   const credentials = { email, senha };
-  //   return this.http.post<any>(`${this.apiUrl}/login`, credentials);
-  // }
-
   login(email: string, senha: string) {
     return this.http.post<any>(`${this.apiUrl}/login`, { email, senha }).pipe(
       tap(response => {
-        // Armazena a permissão no localStorage
         localStorage.setItem('permissao', response.usuario.permissao);
+        localStorage.setItem('idUsuario', response.usuario.id);
       })
     );
   }

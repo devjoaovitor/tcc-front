@@ -1,25 +1,33 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ToastService } from 'src/app/services/toast.service';
+import { BebidaService } from 'src/app/services/bebidas.service';
 
 @Component({
   selector: 'app-estoque',
   templateUrl: './estoque.component.html',
   styleUrls: ['./estoque.component.scss']
 })
-export class EstoqueComponent {
+export class EstoqueComponent implements OnInit {
   bebidas: any[];
 
-  constructor(private toastService: ToastService, private router: Router) {
-    this.bebidas = [
-      { id: 1, nome: 'Cerveja', quantidade: 20, descricao: 'Uma bebida fermentada feita a partir de grãos de cevada.' },
-      { id: 2, nome: 'Vinho Tinto', quantidade: 15, descricao: 'Vinho feito de uvas tintas, muitas vezes servido em temperatura ambiente.' },
-      { id: 3, nome: 'Vinho Branco', quantidade: 10, descricao: 'Vinho feito de uvas brancas, normalmente servido gelado.' }
-    ];
+  constructor(private router: Router, private bebidaService: BebidaService) {
+    this.bebidas = [];
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.carregarBebidas();
+  }
+
+  carregarBebidas() {
+    this.bebidaService.getAllBebidas().subscribe(
+      (bebidas) => {
+        this.bebidas = bebidas;
+      },
+      (error) => {
+        console.error('Erro ao obter a lista de bebidas:', error);
+      }
+    );
+  }
 
   editarBebida(id: number) {
     console.log('Editar bebida com o ID:', id);
@@ -27,12 +35,18 @@ export class EstoqueComponent {
   }
 
   excluirBebida(id: number) {
-    console.log('Excluir bebida com o ID:', id);
-    this.toastService.showToast('Você tem certeza que deseja excluir esta bebida?<br>Esta ação é irreversível.', 'Fechar', 'Deletar');
+    this.bebidaService.deleteBebida(id).subscribe(
+      (bebidas) => {
+        this.bebidas = bebidas;
+        this.carregarBebidas()
+      },
+      (error) => {
+        console.error('Erro ao obter a lista de bebidas:', error);
+      }
+    );
   }
 
   gerarRelatorio() {
 
   }
-
 }

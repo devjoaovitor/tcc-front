@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { BebidaService } from 'src/app/services/bebidas.service';
 import { VendasService } from 'src/app/services/vendas.service';
 
 @Component({
@@ -7,15 +8,12 @@ import { VendasService } from 'src/app/services/vendas.service';
   templateUrl: './vendas.component.html',
   styleUrls: ['./vendas.component.scss']
 })
-export class VendasComponent {
+export class VendasComponent implements OnInit{
   vendasForm: FormGroup;
-  bebidasDisponiveis = [
-    { nome: 'Bebida 1', quantidade: 20 },
-    { nome: 'Bebida 2', quantidade: 15 },
-    // ... adicione outras bebidas disponíveis com suas quantidades
-  ];
+  bebidasDisponiveis: any[] = [];
+  mensagemDeSucesso: string | null = null;
 
-  constructor(private fb: FormBuilder, private vendasService: VendasService) {
+  constructor(private fb: FormBuilder, private vendasService: VendasService, private bebidaService: BebidaService,) {
     this.vendasForm = this.fb.group({
       bebida: ['', Validators.required],
       quantidade: ['', Validators.required],
@@ -24,28 +22,42 @@ export class VendasComponent {
     });
   }
 
-  // get nomeCliente() { return this.vendasForm.get('nomeCliente'); }
+  ngOnInit() {
+    this.obterBebidasDisponiveis();
+  }
+
+  obterBebidasDisponiveis() {
+    this.bebidaService.getAllBebidas().subscribe(
+      (bebidas) => {
+        this.bebidasDisponiveis = bebidas;
+      },
+      (error) => {
+        console.error('Erro ao obter bebidas:', error);
+      }
+    );
+  }
+
   get bebida() { return this.vendasForm.get('bebida'); }
   get quantidade() { return this.vendasForm.get('quantidade'); }
   get valor() { return this.vendasForm.get('valor'); }
 
 
   registrarVenda() {
-  //   const bebidaSelecionada = this.bebidasDisponiveis.find(bebida => bebida.nome === this.bebida?.value);
-  //   if (bebidaSelecionada) {
-  //     const quantidadeVendida = parseInt(this.quantidade?.value, 10);
-  //     if (quantidadeVendida > 0 && quantidadeVendida <= bebidaSelecionada.quantidade) {
-  //       bebidaSelecionada.quantidade -= quantidadeVendida;
-  //     }
-  // }
     const vendaData = {
       bebida: this.bebida?.value,
       quantidade: this.quantidade?.value,
-      formaPagamento: this.vendasForm.get('formaPagamento')?.value
+      formaPagamento: this.vendasForm.get('formaPagamento')?.value,
+      valorVenda: 10,
     };
     this.vendasService.registrarVenda(vendaData).subscribe(
       (response) => {
-        console.log('Venda registrada com sucesso.', response);
+        this.vendasForm.reset();
+        this.obterBebidasDisponiveis();
+        const mensagem = response?.message || 'Venda registrada com sucesso!';
+        this.mensagemDeSucesso = mensagem;
+        setTimeout(() => {
+          this.mensagemDeSucesso = null;
+        }, 2000);
       },
       (error) => {
         console.error('Erro ao registrar a venda.', error);
@@ -59,40 +71,31 @@ export class VendasComponent {
   }
 
   getMaxQuantidade(): number {
-    const bebidaSelecionada = this.bebidasDisponiveis.find(bebida => bebida.nome === this.bebida?.value);
+    const bebidaSelecionada = this.bebidasDisponiveis.find(bebida => bebida.nomebebida === this.bebida?.value);
 
     if (bebidaSelecionada) {
-      return bebidaSelecionada.quantidade;
+      return bebidaSelecionada.quantidadebebida;
     }
 
     return 0;
   }
 
   obterEstoqueBebida(): number {
-    const bebidaSelecionada = this.bebidasDisponiveis.find(bebida => bebida.nome === this.bebida?.value);
+    const bebidaSelecionada = this.bebidasDisponiveis.find(bebida => bebida.nomebebida === this.bebida?.value);
     return bebidaSelecionada ? bebidaSelecionada.quantidade : 0;
   }
 
   validarQuantidade(): void {
-    const bebidaSelecionada = this.bebidasDisponiveis.find(bebida => bebida.nome === this.bebida?.value);
+    const bebidaSelecionada = this.bebidasDisponiveis.find(bebida => bebida.nomebebida === this.bebida?.value);
     const quantidadeInput = this.vendasForm.get('quantidade');
 
     if (bebidaSelecionada && quantidadeInput) {
       const quantidadeVendida = parseInt(quantidadeInput.value, 10);
 
-      // Limita a quantidade ao estoque disponível
       if (quantidadeVendida > bebidaSelecionada.quantidade) {
-        quantidadeInput.setValue(bebidaSelecionada.quantidade); // Define a quantidade como o máximo disponível
+        quantidadeInput.setValue(bebidaSelecionada.quantidade);
       }
     }
   }
 
-  // onKeyPress(event: any) {
-  //   const allowedChars = /[0-9\.\ ]/;
-  //   const inputChar = String.fromCharCode(event.charCode);
-
-  //   if (!allowedChars.test(inputChar)) {
-  //     event.preventDefault();
-  //   }
-  // }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BebidaService } from 'src/app/services/bebidas.service';
 
 @Component({
@@ -11,13 +11,15 @@ import { BebidaService } from 'src/app/services/bebidas.service';
 export class BebidasEditComponent implements OnInit {
   public bebidaForm: FormGroup;
   bebida: any;
+  idBebida: number = 0;
+  mensagemDeSucesso: string | null = null;
 
-  constructor(private activatedRoute: ActivatedRoute, private fb: FormBuilder, private bebidaService: BebidaService) {
+  constructor(private activatedRoute: ActivatedRoute, private fb: FormBuilder,  private router: Router, private bebidaService: BebidaService) {
     this.bebidaForm = this.fb.group({
       nomeBebida: ['', Validators.required],
       tipoBebida: ['', Validators.required],
       teorAlcoolico: ['', [Validators.required, Validators.max(100)]],
-      descricaoBebida: ['', Validators.required],
+      descricao: ['', Validators.required],
       quantidadeBebida: ['', [Validators.required, Validators.min(0)]],
       valorUnitario: ['', [Validators.required, Validators.min(0)]],
     });
@@ -33,12 +35,12 @@ export class BebidasEditComponent implements OnInit {
 
   private patchFormValues(bebida: any) {
     this.bebidaForm.patchValue({
-      nomeBebida: bebida.nome,
-      tipoBebida: bebida.tipoBebida,
-      teorAlcoolico: bebida.teorAlcoolico,
-      quantidadeBebida: bebida.quantidadeBebida,
-      descricaoBebida: bebida.descricaoBebida,
-      valorUnitario: bebida.valorUnitario,
+      nomeBebida: bebida.nomebebida,
+      tipoBebida: bebida.tipobebida,
+      teorAlcoolico: bebida.teoralcoolico,
+      quantidadeBebida: bebida.quantidadebebida,
+      descricao: bebida.descricao,
+      valorUnitario: bebida.valorunitario,
     });
   }
 
@@ -54,7 +56,20 @@ export class BebidasEditComponent implements OnInit {
   }
 
   salvarBebida() {
-    console.log(this.bebidaForm.value);
-  }
+  const id = this.activatedRoute.snapshot.params['id'];
+  const bebidaData = { ...this.bebidaForm.value, id };
+  this.bebidaService.updateBebida({...bebidaData }).subscribe(
+    () => {
+      this.mensagemDeSucesso = 'Bebida atualizada com sucesso!';
+      this.router.navigate(['/estoque']);
+      setTimeout(() => {
+        this.mensagemDeSucesso = null;
+      }, 3000);
+    },
+    (error) => {
+      console.error('Erro ao atualizar a bebida:', error);
+    }
+  );
+}
 
 }

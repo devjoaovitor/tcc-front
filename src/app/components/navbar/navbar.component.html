@@ -1,5 +1,6 @@
 <app-toast></app-toast>
-<nav class="navbar navbar-light bg-light custom-border-bottom">
+<!-- <nav *ngIf="isUserLoggedIn()" class="navbar navbar-light bg-light custom-border-bottom"> -->
+  <nav class="navbar navbar-light bg-light custom-border-bottom">
   <div class="container">
     <a class="navbar-brand" href="#">
       <img src="assets/drink-icon.svg" alt="icone" width="50" height="50" />
@@ -99,9 +100,6 @@
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
           <li>
             <a class="dropdown-item" [routerLink]="['/bebidas']">Nova bebida</a>
-          </li>
-          <li>
-            <a class="dropdown-item" [routerLink]="['/bebidas']">Relatório</a>
           </li>
         </ul>
       </div>
