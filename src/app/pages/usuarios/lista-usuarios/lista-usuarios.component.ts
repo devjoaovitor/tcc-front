@@ -37,7 +37,6 @@ export class ListaUsuariosComponent {
   }
 
   editarUsuario(id: number) {
-    console.log('Editar usuario com o ID:', id);
     this.router.navigate(['/usuario/edit', id]);
   }
 
