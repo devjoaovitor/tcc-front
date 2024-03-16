@@ -24,6 +24,7 @@ import { UsuarioService } from './services/usuario.service';
 import { ListaVendasComponent } from './pages/vendas/lista-vendas/lista-vendas.component';
 import { AdminGuard, VendedorGuard, VisualizacaoGuard } from './guards/auth-guard';
 import { SucessoMensagemComponent } from './components/sucesso-mensagem/sucesso-mensagem.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { SucessoMensagemComponent } from './components/sucesso-mensagem/sucesso-
     ListaUsuariosComponent,
     UsuarioEditComponent,
     ListaVendasComponent,
-    SucessoMensagemComponent
+    SucessoMensagemComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
