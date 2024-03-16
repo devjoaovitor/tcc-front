@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   // private apiUrl = 'http://localhost:3000/api/auth';
-  private apiUrl = 'https://https://tcc-back-a4qz01zcp-devjoaovitors-projects.vercel.app/api/auth';
+  private apiUrl = 'https://tcc-back-a4qz01zcp-devjoaovitors-projects.vercel.app/api/auth';
 
   constructor(private http: HttpClient, private router: Router) {}
 
