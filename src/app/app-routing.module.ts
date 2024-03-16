@@ -17,11 +17,11 @@ import { ListaVendasComponent } from './pages/vendas/lista-vendas/lista-vendas.c
 import { AdminGuard, VendedorGuard, VisualizacaoGuard } from './guards/auth-guard';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [AdminGuard || VendedorGuard || VisualizacaoGuard] },
-  { path: 'home', component: HomeComponent, canActivate: [AdminGuard || VendedorGuard || VisualizacaoGuard]},
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent},
   { path: 'login', component: LoginComponent },
 
-  { path: 'eventos', component: EventosComponent, canActivate: [AdminGuard || VendedorGuard ]},
+  { path: 'eventos', component: EventosComponent},
   { path: 'lista-eventos', component: ListaEventosComponent, canActivate: [AdminGuard || VendedorGuard || VisualizacaoGuard] },
   { path: 'evento/edit/:id', component: EventosEditComponent, canActivate: [AdminGuard]  },
 
@@ -29,8 +29,11 @@ const routes: Routes = [
   { path: 'bebidas/edit/:id', component: BebidasEditComponent, canActivate: [AdminGuard]  },
   { path: 'estoque', component: EstoqueComponent, canActivate: [AdminGuard || VendedorGuard || VisualizacaoGuard] },
 
-  { path: 'vendas', component: VendasComponent, canActivate: [AdminGuard || VendedorGuard] },
-  { path: 'lista-vendas', component: ListaVendasComponent, canActivate: [AdminGuard || VendedorGuard ||  VisualizacaoGuard]},
+  // { path: 'vendas', component: VendasComponent, canActivate: [AdminGuard || VendedorGuard] },
+  // { path: 'lista-vendas', component: ListaVendasComponent, canActivate: [AdminGuard || VendedorGuard ||  VisualizacaoGuard]},
+
+  { path: 'vendas', component: VendasComponent },
+  { path: 'lista-vendas', component: ListaVendasComponent },
 
   { path: 'cadastro-usuario', component: CadastroUsuarioComponent, canActivate: [AdminGuard || VendedorGuard] },
   { path: 'mudar-senha/:id', component: MudarSenhaComponent, canActivate: [AdminGuard || VendedorGuard ||  VisualizacaoGuard] },

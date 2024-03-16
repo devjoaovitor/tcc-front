@@ -15,10 +15,10 @@ export class NavbarComponent {
     this.toastService.showToast('Tem certeza que deseja sair da aplicação?', 'Fechar', 'Sair');
   }
 
-  // isUserLoggedIn(): boolean {
-  //   const permissao = localStorage.getItem('permissao');
-  //   return permissao !== null;
-  // }
+  isUserLoggedIn(): boolean {
+    const permissao = localStorage.getItem('permissao');
+    return permissao !== null;
+  }
 
   mudarSenha() {
     const id = 1; // You can get the user ID from the token

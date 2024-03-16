@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  isLoading: boolean = false;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router,) {
     this.loginForm = this.fb.group({
@@ -24,13 +25,16 @@ export class LoginComponent {
   login() {
     if (this.loginForm.valid) {
       const { email, senha } = this.loginForm.value;
+      this.isLoading = true; // Define isLoading como true antes de iniciar a requisição
       this.authService.login(email, senha).subscribe(
         (response) => {
           console.log('Usuário autenticado:', response);
           this.router.navigate(['/home']);
+          this.isLoading = false; // Define isLoading como false após receber a resposta com sucesso
         },
         (error) => {
           console.error('Erro ao autenticar usuário:', error);
+          this.isLoading = false; // Define isLoading como false ao ocorrer um erro
         }
       );
     }
